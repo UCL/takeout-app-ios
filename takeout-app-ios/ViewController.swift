@@ -50,8 +50,10 @@ class ViewController: UIViewController, WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         NSLog("End loading");
         if isTakeoutPage {
-            wkWebView.evaluateJavaScript("document.getElementsByTagName('button')[1].click()", completionHandler: nil)
-            wkWebView.evaluateJavaScript("document.getElementsByName('My Activity')[0].click()", completionHandler: nil)
+            for jsCall in JavascriptCalls.downloadData {
+                print("\(jsCall)")
+                wkWebView.evaluateJavaScript(jsCall, completionHandler: nil)
+            }
         }
         NSLog("Ended evaluation of Javascript code")
     }
