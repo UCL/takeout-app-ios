@@ -49,10 +49,10 @@ class ViewController: UIViewController, WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         NSLog("End loading");
+        print("\(webView.customUserAgent ?? "no user agent")")
         if isTakeoutPage {
             for jsCall in JavascriptCalls.downloadData {
-                print("\(jsCall)")
-                wkWebView.evaluateJavaScript(jsCall, completionHandler: nil)
+                wkWebView.evaluateJavaScript(jsCall, completionHandler: {(result, error) in print("\(result ?? error ?? "undefined")")})
             }
         }
         NSLog("Ended evaluation of Javascript code")
